@@ -15,14 +15,7 @@ After=network.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=$APP_DIR
-Environment=PATH=$NODE_BIN:/usr/local/bin:/usr/bin:/bin
-ExecStart=$NODE_BIN/npm start
-Restart=always
-RestartSec=5
-Environment=NODE_ENV=production
-Environment=PORT=3000
-Environment=DATABASE_URL=mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds
+ExecStart=/bin/bash -c "cd $APP_DIR && PATH=$NODE_BIN:\$PATH NODE_ENV=production PORT=3000 DATABASE_URL=mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds $NODE_BIN/npm start"
 
 [Install]
 WantedBy=multi-user.target
