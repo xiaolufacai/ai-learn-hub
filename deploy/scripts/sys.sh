@@ -5,6 +5,7 @@
 # ==============================================
 
 APP_DIR="/www/wwwroot/ds.xiaolu.ink/deploy/nextjs"
+NODE_BIN="/root/.nvm/versions/node/v18.20.8/bin"
 
 cat > /etc/systemd/system/ai-hub.service << EOF
 [Unit]
@@ -15,7 +16,8 @@ After=network.target
 Type=simple
 User=www
 WorkingDirectory=$APP_DIR
-ExecStart=/usr/local/bin/npm start
+Environment=PATH=$NODE_BIN:/usr/local/bin:/usr/bin:/bin
+ExecStart=$NODE_BIN/npm start
 Restart=always
 RestartSec=5
 Environment=NODE_ENV=production

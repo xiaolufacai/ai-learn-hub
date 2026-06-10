@@ -14,13 +14,7 @@ SCRIPTS_DIR="$PROJECT_DIR/deploy/scripts"
 NODE_BIN="/root/.nvm/versions/node/v18.20.8/bin"
 export PATH="$NODE_BIN:$PATH"
 
-# ========== 确保 node/npm 可用 ==========
-if [ ! -f /usr/local/bin/node ]; then
-    ln -sf "$NODE_BIN/node" /usr/local/bin/node
-    ln -sf "$NODE_BIN/npm" /usr/local/bin/npm
-    ln -sf "$NODE_BIN/npx" /usr/local/bin/npx
-fi
-NODE_VER=$(/usr/local/bin/node -v)
+NODE_VER=$(node -v)
 echo "✅ Node.js $NODE_VER"
 echo ""
 
@@ -42,15 +36,16 @@ if [ -f "$CACHE_FILE" ] && [ "$(cat "$CACHE_FILE")" = "$PKG_HASH" ] && [ -d "$AP
 else
     echo "📦 安装依赖（package.json 已变动）..."
     cd "$APP_DIR"
-    NODE_OPTIONS="--max-old-space-size=256" /usr/local/bin/npm install --prefer-offline --no-audit --no-fund 2>&1 | tail -5
+    NODE_OPTIONS="--max-old-space-size=256" npm install --prefer-offline --no-audit --no-fund 2>&1 | tail -5
     echo "$PKG_HASH" > "$CACHE_FILE"
     echo "✅ 安装完成"
 fi
 
 # ========== 3. 生成 Prisma + 同步表结构 ==========
 echo "🗄️  同步数据库..."
-/usr/local/bin/npx prisma generate
-/usr/local/bin/npx prisma db push
+cd "$APP_DIR"
+npx prisma generate
+npx prisma db push
 echo "✅ 数据库表结构已同步"
 
 # ========== 4. 初始化数据（仅空库时） ==========
@@ -68,12 +63,12 @@ const{PrismaClient}=require('@prisma/client');
 if [ "$NEWS_COUNT" = "0" ]; then
     echo "📥 导入初始数据..."
     cd "$SCRIPTS_DIR"
-    NODE_OPTIONS="--max-old-space-size=256" /usr/local/bin/npm install --silent --prefer-offline --no-audit --no-fund 2>&1 | tail -3
-    /usr/local/bin/npx prisma generate --schema=./prisma/schema.prisma 2>&1 | tail -3
-    DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" /usr/local/bin/npx tsx sync-news.ts
-    DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" /usr/local/bin/npx tsx sync-x.ts
-    DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" /usr/local/bin/npx tsx sync-linuxdo.ts
-    DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" /usr/local/bin/npx tsx sync-github.ts
+    NODE_OPTIONS="--max-old-space-size=256" npm install --silent --prefer-offline --no-audit --no-fund 2>&1 | tail -3
+    npx prisma generate --schema=./prisma/schema.prisma 2>&1 | tail -3
+    DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" npx tsx sync-news.ts
+    DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" npx tsx sync-x.ts
+    DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" npx tsx sync-linuxdo.ts
+    DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" npx tsx sync-github.ts
     cd "$APP_DIR"
     echo "✅ 初始数据导入完成"
 else
@@ -84,12 +79,12 @@ fi
 chown -R www:www "$PROJECT_DIR" 2>/dev/null || true
 
 # ========== 6. 构建 ==========
-echo "🔨 构建项目（跳过 lint 节省资源）..."
+echo "🔨 构建项目..."
 cd "$APP_DIR"
-NODE_OPTIONS="--max-old-space-size=384" /usr/local/bin/npm run build 2>&1 | tail -10
+NODE_OPTIONS="--max-old-space-size=384" npm run build 2>&1 | tail -10
 
 # ========== 7. 安装 systemd 服务并启动 ==========
-echo "🚀 安装 systemd 服务..."
+echo "🚀 启动服务..."
 bash "$SCRIPTS_DIR/sys.sh"
 
 echo ""
