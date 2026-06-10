@@ -1,0 +1,84 @@
+<h2>📋 完整设计方案 — 最终确认</h2>
+<p class="subtitle">AI Learning Hub V2 Enterprise · 暗黑科技风仪表盘</p>
+
+<div class="section">
+  <h3>🏗️ 架构</h3>
+  <div style="background:#0a0a0f;padding:16px;border-radius:8px;font-family:monospace;font-size:12px">
+    <div style="text-align:center;color:#0ff;margin-bottom:12px">内容采集层 → 编排层 → 展示层</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;text-align:center">
+      <div style="background:#16213e;padding:8px;border-radius:4px">
+        <div style="color:#e94560;font-size:10px">Phase 1</div>
+        <div style="color:#ccc;font-size:9px">12 Agents 采集</div>
+      </div>
+      <div style="background:#16213e;padding:8px;border-radius:4px">
+        <div style="color:#e94560;font-size:10px">Phase 2</div>
+        <div style="color:#ccc;font-size:9px">编排→验证→去重→SEO</div>
+      </div>
+      <div style="background:#16213e;padding:8px;border-radius:4px">
+        <div style="color:#e94560;font-size:10px">Phase 3</div>
+        <div style="color:#ccc;font-size:9px">Next.js 仪表盘网站</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>🎨 视觉 & 布局</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#0ff">风格</td><td style="padding:6px;color:#ccc">暗黑科技风 — 深色背景 + 霓虹强调色 (#e94560 #0ff)</td></tr>
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#0ff">首页</td><td style="padding:6px;color:#ccc">仪表盘式 — 主内容区 + 右侧趋势面板</td></tr>
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#0ff">导航</td><td style="padding:6px;color:#ccc">IDE式左侧边栏 — 常驻 7 个导航项</td></tr>
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#0ff">字体</td><td style="padding:6px;color:#ccc">JetBrains Mono (代码/标题) + Inter (正文)</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <h3>🛠️ 技术栈</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#0ff">框架</td><td style="padding:6px;color:#ccc">Next.js 14 App Router + TypeScript</td></tr>
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#0ff">样式</td><td style="padding:6px;color:#ccc">Tailwind CSS + shadcn/ui</td></tr>
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#0ff">数据库</td><td style="padding:6px;color:#ccc">Supabase PostgreSQL</td></tr>
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#0ff">图标</td><td style="padding:6px;color:#ccc">Lucide Icons</td></tr>
+    <tr><td style="padding:6px;color:#0ff">部署</td><td style="padding:6px;color:#ccc">Vercel</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <h3>📊 数据策略</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#e94560">快数据</td><td style="padding:6px;color:#ccc">AI新闻、GitHub Trending — Agent 采集真实数据</td></tr>
+    <tr style="border-bottom:1px solid #1a1a2e"><td style="padding:6px;color:#0ff">慢数据</td><td style="padding:6px;color:#ccc">AI工具、MCP、书籍、知识库 — AI 生成高质量内容</td></tr>
+    <tr><td style="padding:6px;color:#888">存储</td><td style="padding:6px;color:#ccc">Supabase 4 张表: ai_news, github_projects, ai_tools, mcp_servers</td></tr>
+  </table>
+</div>
+
+<div class="section">
+  <h3>📄 页面清单</h3>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;font-size:12px">
+    <div style="background:#1a1a2e;padding:10px;border-left:3px solid #e94560">🏠 <strong style="color:#fff">首页仪表盘</strong><br><span style="color:#888">最新动态 + 趋势面板</span></div>
+    <div style="background:#1a1a2e;padding:10px;border-left:3px solid #0ff">📰 <strong style="color:#fff">AI新闻列表</strong><br><span style="color:#888">时间线 + 分类筛选</span></div>
+    <div style="background:#1a1a2e;padding:10px;border-left:3px solid #0ff">📄 <strong style="color:#fff">新闻详情</strong><br><span style="color:#888">Markdown渲染</span></div>
+    <div style="background:#1a1a2e;padding:10px;border-left:3px solid #0ff">⭐ <strong style="color:#fff">GitHub Trending</strong><br><span style="color:#888">仓库卡片 + Star趋势</span></div>
+    <div style="background:#1a1a2e;padding:10px;border-left:3px solid #0ff">🛠️ <strong style="color:#fff">AI工具目录</strong><br><span style="color:#888">分类 + 定价 + 搜索</span></div>
+    <div style="background:#1a1a2e;padding:10px;border-left:3px solid #0ff">🔌 <strong style="color:#fff">MCP服务器</strong><br><span style="color:#888">名称 + 描述 + GitHub链接</span></div>
+    <div style="background:#1a1a2e;padding:10px;border-left:3px solid #0ff">📚 <strong style="color:#fff">知识库</strong><br><span style="color:#888">Claude Code + Codex + AI Books</span></div>
+    <div style="background:#1a1a2e;padding:10px;border-left:3px solid #0ff">🔍 <strong style="color:#fff">全局搜索</strong><br><span style="color:#888">跨板块搜索</span></div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>📦 交付物</h3>
+  <ol style="color:#ccc;font-size:13px;line-height:2">
+    <li><strong style="color:#0ff">Next.js 完整网站</strong> — 所有页面 + 组件 + 暗黑主题</li>
+    <li><strong style="color:#0ff">Supabase 数据库</strong> — 建表 + 填充数据</li>
+    <li><strong style="color:#0ff">Agent 采集管线</strong> — 快数据真实采集脚本</li>
+    <li><strong style="color:#0ff">内容生成</strong> — 慢数据AI生成内容</li>
+    <li><strong style="color:#0ff">SEO 元数据</strong> — 每页 title/description/keywords</li>
+    <li><strong style="color:#0ff">README 文档</strong> — 启动/部署说明</li>
+  </ol>
+</div>
+
+<div class="section" style="text-align:center">
+  <p style="color:#e94560;font-size:18px;font-weight:bold">⬆️ 确认以上全部设计方案？</p>
+  <p style="color:#94a3b8;font-size:13px">确认后我会写入正式 spec 文档，然后进入实现阶段。</p>
+</div>

@@ -1,0 +1,43 @@
+<h2>数据策略 — 内容怎么来？</h2>
+<p class="subtitle">暗黑科技风仪表盘需要真实内容才有灵魂</p>
+
+<div class="options">
+  <div class="option" data-choice="live-agents" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>全量真实数据采集</h3>
+      <p>运行所有12个 agent 实时抓取/生成内容：爬GitHub Trending、搜AI新闻、采集MCP服务器列表、整理AI工具目录等。写入 Supabase，网站读数据库展示。</p>
+      <div style="margin-top:8px;padding:8px;background:#1a1a2e;border-left:2px solid #0ff;font-size:13px">
+        <span style="color:#0ff">⏱️ 耗时：</span><span style="color:#aaa">较长（需逐个运行agent采集）</span><br>
+        <span style="color:#0ff">📊 数据量：</span><span style="color:#aaa">丰富真实，可立即上线</span><br>
+        <span style="color:#0ff">⚠️ 风险：</span><span style="color:#aaa">爬取可能被限流，部分API需Key</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="generated" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>AI生成模拟数据</h3>
+      <p>不爬外网，直接用 AI 生成高质量模拟内容填充数据库。速度快、无网络依赖，内容质量可控。网站完整可运行，后续可替换为真实数据。</p>
+      <div style="margin-top:8px;padding:8px;background:#1a1a2e;border-left:2px solid #0ff;font-size:13px">
+        <span style="color:#0ff">⏱️ 耗时：</span><span style="color:#aaa">快速（一轮生成即可）</span><br>
+        <span style="color:#0ff">📊 数据量：</span><span style="color:#aaa">可控，质量高但不"真实"</span><br>
+        <span style="color:#0ff">⚠️ 风险：</span><span style="color:#aaa">内容可能有时效性问题</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="hybrid-data" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>混合策略（推荐）</h3>
+      <p>对"慢数据"（AI工具目录、MCP服务器列表、书籍、知识库）用AI生成高质量内容。对"快数据"（AI新闻头条、GitHub Trending）运行 agent 采集公开可查的真实数据。两全其美。</p>
+      <div style="margin-top:8px;padding:8px;background:#1a1a2e;border-left:2px solid #e94560;font-size:13px">
+        <span style="color:#e94560">⏱️ 耗时：</span><span style="color:#aaa">中等（快数据采集 + 慢数据生成并行）</span><br>
+        <span style="color:#e94560">📊 数据量：</span><span style="color:#aaa">关键内容真实 + 补充内容高质量</span><br>
+        <span style="color:#e94560">💡 推荐理由：</span><span style="color:#aaa">首页仪表盘需要真实新闻才有价值感</span>
+      </div>
+    </div>
+  </div>
+</div>

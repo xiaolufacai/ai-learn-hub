@@ -1,0 +1,57 @@
+<h2>技术栈选择</h2>
+<p class="subtitle">暗黑科技风仪表盘的技术底座</p>
+
+<div class="options">
+  <div class="option" data-choice="tailwind" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>Next.js 14 + Tailwind CSS + shadcn/ui</h3>
+      <p>App Router + Server Components + Tailwind 原子化样式 + shadcn/ui 组件库。暗黑模式开箱即用，shadcn/ui 的组件风格天然适合暗黑科技风。</p>
+      <div style="margin-top:8px;padding:8px;background:#1a1a2e;border-left:2px solid #0ff;font-size:13px">
+        <span style="color:#0ff">🎨 暗黑适配：</span><span style="color:#aaa">Tailwind dark: 前缀，完美控制</span><br>
+        <span style="color:#0ff">🧩 组件：</span><span style="color:#aaa">shadcn/ui Card/Badge/Tabs 即插即用</span><br>
+        <span style="color:#0ff">⚡ 性能：</span><span style="color:#aaa">RSC + Tailwind JIT，极致性能</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="option" data-choice="css-modules" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>Next.js 14 + CSS Modules + 手写组件</h3>
+      <p>App Router + CSS Modules 手写所有样式和组件。完全定制化，但开发量大。</p>
+      <div style="margin-top:8px;padding:8px;background:#1a1a2e;border-left:2px solid #0ff;font-size:13px">
+        <span style="color:#0ff">🎨 自由度：</span><span style="color:#aaa">100% 定制，无框架约束</span><br>
+        <span style="color:#0ff">⚠️ 成本：</span><span style="color:#aaa">所有组件从零写起，耗时长</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>其他技术选型</h3>
+  <table style="width:100%;border-collapse:collapse;font-size:13px">
+    <tr style="border-bottom:1px solid #1a1a2e">
+      <td style="padding:8px;color:#0ff">数据库</td>
+      <td style="padding:8px;color:#ccc">Supabase (PostgreSQL) — 已有 schema</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1a2e">
+      <td style="padding:8px;color:#0ff">ORM</td>
+      <td style="padding:8px;color:#ccc">@supabase/supabase-js (官方SDK，无需Prisma)</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1a2e">
+      <td style="padding:8px;color:#0ff">内容格式</td>
+      <td style="padding:8px;color:#ccc">Markdown/MDX 存储，前端渲染</td>
+    </tr>
+    <tr style="border-bottom:1px solid #1a1a2e">
+      <td style="padding:8px;color:#0ff">部署</td>
+      <td style="padding:8px;color:#ccc">Vercel (Next.js 原生) / 自部署</td>
+    </tr>
+    <tr>
+      <td style="padding:8px;color:#0ff">图标</td>
+      <td style="padding:8px;color:#ccc">Lucide Icons (与 shadcn/ui 配套)</td>
+    </tr>
+  </table>
+</div>
+
+<p style="color:#94a3b8;font-size:14px;text-align:center;margin-top:16px">💡 <strong>推荐 A（Tailwind + shadcn/ui）</strong> — 暗黑模式、组件质量、开发速度三者最优解。</p>

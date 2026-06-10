@@ -1,0 +1,61 @@
+<h2>AI Learning Hub V2 — 网站架构总览</h2>
+<p class="subtitle">12个内容智能体 → Next.js 网站 → 6大内容板块</p>
+
+<div class="section">
+  <h3>🏗️ 系统架构</h3>
+  <div class="mockup">
+    <div class="mockup-header">Multi-Agent Content Pipeline → Next.js Website</div>
+    <div class="mockup-body">
+      <div style="padding:16px;font-family:monospace;font-size:13px;line-height:1.6">
+        <div style="background:#1a1a2e;color:#e94560;padding:10px;border-radius:8px;margin-bottom:8px;text-align:center">
+          <strong>📡 内容采集层 (Content Agents)</strong>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px">
+          <div style="background:#16213e;color:#0f3460;padding:8px;border-radius:6px;text-align:center;color:#eee">🤖 AI News</div>
+          <div style="background:#16213e;color:#0f3460;padding:8px;border-radius:6px;text-align:center;color:#eee">📈 GitHub Trending</div>
+          <div style="background:#16213e;color:#0f3460;padding:8px;border-radius:6px;text-align:center;color:#eee">🛠️ AI Tools</div>
+          <div style="background:#16213e;color:#0f3460;padding:8px;border-radius:6px;text-align:center;color:#eee">🔌 MCP Discovery</div>
+          <div style="background:#16213e;color:#0f3460;padding:8px;border-radius:6px;text-align:center;color:#eee">📚 AI Books</div>
+          <div style="background:#16213e;color:#0f3460;padding:8px;border-radius:6px;text-align:center;color:#eee">📺 B站</div>
+          <div style="background:#16213e;color:#0f3460;padding:8px;border-radius:6px;text-align:center;color:#eee">🧠 Claude Code</div>
+          <div style="background:#16213e;color:#0f3460;padding:8px;border-radius:6px;text-align:center;color:#eee">💻 Codex</div>
+          <div style="background:#16213e;color:#0f3460;padding:8px;border-radius:6px;text-align:center;color:#eee">🐦 X(Twitter)</div>
+        </div>
+
+        <div style="text-align:center;color:#aaa;margin:8px 0">⬇️</div>
+
+        <div style="background:#0f3460;color:#e94560;padding:10px;border-radius:8px;margin-bottom:8px;text-align:center">
+          <strong>🎯 编排层 (Orchestrator)</strong>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:12px">
+          <div style="background:#16213e;padding:8px;border-radius:6px;text-align:center;color:#eee">✅ 验证</div>
+          <div style="background:#16213e;padding:8px;border-radius:6px;text-align:center;color:#eee">🔄 去重</div>
+          <div style="background:#16213e;padding:8px;border-radius:6px;text-align:center;color:#eee">📝 MDX生成</div>
+          <div style="background:#16213e;padding:8px;border-radius:6px;text-align:center;color:#eee">🔍 SEO优化</div>
+          <div style="background:#16213e;padding:8px;border-radius:6px;text-align:center;color:#eee">🔗 关联链接</div>
+          <div style="background:#16213e;padding:8px;border-radius:6px;text-align:center;color:#eee">📤 发布</div>
+        </div>
+
+        <div style="text-align:center;color:#aaa;margin:8px 0">⬇️</div>
+
+        <div style="background:#533483;color:#e94560;padding:10px;border-radius:8px;margin-bottom:8px;text-align:center">
+          <strong>🌐 Next.js 网站</strong>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px">
+          <div style="background:#2d1b69;padding:8px;border-radius:6px;text-align:center;color:#eee">🏠 首页</div>
+          <div style="background:#2d1b69;padding:8px;border-radius:6px;text-align:center;color:#eee">📰 新闻</div>
+          <div style="background:#2d1b69;padding:8px;border-radius:6px;text-align:center;color:#eee">⭐ Trending</div>
+          <div style="background:#2d1b69;padding:8px;border-radius:6px;text-align:center;color:#eee">🧰 工具</div>
+          <div style="background:#2d1b69;padding:8px;border-radius:6px;text-align:center;color:#eee">🔌 MCP</div>
+          <div style="background:#2d1b69;padding:8px;border-radius:6px;text-align:center;color:#eee">📚 知识库</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <h3>📋 需要确认的核心问题</h3>
+  <p>接下来我会逐个向你确认设计方向：视觉风格、页面布局、数据策略等。</p>
+  <p>现在先看这个架构 — <strong>这个 3 层架构（采集→编排→展示）和 6 大内容板块是否符合你的预期？</strong></p>
+</div>

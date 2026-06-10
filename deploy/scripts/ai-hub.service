@@ -1,0 +1,24 @@
+[Unit]
+Description=AI Learning Hub V2 — Next.js Website
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+WorkingDirectory=/www/wwwroot/ds.xiaolu.ink/nextjs
+ExecStart=/usr/bin/npm start
+Restart=always
+RestartSec=10
+StandardOutput=append:/www/wwwroot/ds.xiaolu.ink/logs/server.log
+StandardError=append:/www/wwwroot/ds.xiaolu.ink/logs/server.error.log
+Environment=NODE_ENV=production
+Environment=PORT=3000
+
+NoNewPrivileges=yes
+ProtectSystem=strict
+ProtectHome=yes
+ReadWritePaths=/www/wwwroot/ds.xiaolu.ink
+PrivateTmp=yes
+
+[Install]
+WantedBy=multi-user.target

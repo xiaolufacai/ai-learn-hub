@@ -1,0 +1,95 @@
+<h2>选择视觉风格方向</h2>
+<p class="subtitle">两种主流AI技术类网站的风格，哪个更符合你的定位？</p>
+
+<div class="cards">
+  <div class="card" data-choice="dark-tech" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#0a0a0f;padding:24px;border-radius:8px;min-height:200px">
+        <div style="font-family:monospace;font-size:10px;color:#0ff;margin-bottom:8px">✦ AI LEARNING HUB</div>
+        <div style="background:linear-gradient(135deg,#1a1a2e,#0f3460);padding:16px;border-radius:8px;margin-bottom:8px">
+          <div style="color:#e94560;font-size:14px;font-weight:bold;margin-bottom:4px">GPT-5 发布倒计时</div>
+          <div style="color:#aaa;font-size:11px">OpenAI 最新动态追踪...</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);padding:16px;border-radius:8px;margin-bottom:8px">
+          <div style="color:#0ff;font-size:14px;font-weight:bold;margin-bottom:4px">GitHub Trending</div>
+          <div style="color:#aaa;font-size:11px">本周最火开源项目...</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <div style="background:#e94560;color:#fff;padding:6px 12px;border-radius:4px;font-size:10px">🔥 热门</div>
+          <div style="background:#0f3460;color:#0ff;padding:6px 12px;border-radius:4px;font-size:10px">🆕 最新</div>
+          <div style="background:#0f3460;color:#0ff;padding:6px 12px;border-radius:4px;font-size:10px">⭐ 精选</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A. 暗黑科技风 (Dark Tech)</h3>
+      <p>深色背景 + 霓虹强调色 + 终端/代码风格元素</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>极客感强，AI开发者偏爱</li><li>阅读舒适度高（暗色模式）</li><li>差异化明显</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>对非技术用户不够友好</li><li>色彩层次控制较难</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="modern-clean" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#f8fafc;padding:24px;border-radius:8px;min-height:200px;border:1px solid #e2e8f0">
+        <div style="font-family:system-ui;font-size:12px;color:#6366f1;margin-bottom:8px;font-weight:600">✦ AI Learning Hub</div>
+        <div style="background:#fff;padding:16px;border-radius:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+          <div style="color:#1e293b;font-size:14px;font-weight:bold;margin-bottom:4px">GPT-5 发布倒计时</div>
+          <div style="color:#94a3b8;font-size:11px">OpenAI 最新动态追踪...</div>
+        </div>
+        <div style="background:#fff;padding:16px;border-radius:12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,0.1)">
+          <div style="color:#1e293b;font-size:14px;font-weight:bold;margin-bottom:4px">GitHub Trending</div>
+          <div style="color:#94a3b8;font-size:11px">本周最火开源项目...</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <div style="background:#6366f1;color:#fff;padding:6px 12px;border-radius:20px;font-size:10px">🔥 热门</div>
+          <div style="background:#f1f5f9;color:#6366f1;padding:6px 12px;border-radius:20px;font-size:10px">🆕 最新</div>
+          <div style="background:#f1f5f9;color:#6366f1;padding:6px 12px;border-radius:20px;font-size:10px">⭐ 精选</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B. 现代简约风 (Modern Clean)</h3>
+      <p>浅色背景 + 卡片式布局 + 无线/Vercel风格</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>干净专业，受众更广</li><li>信息层级清晰</li><li>可读性最佳</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>与很多AI网站雷同</li><li>个性不够突出</li></ul></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" data-choice="hybrid" onclick="toggleSelect(this)">
+    <div class="card-image">
+      <div style="background:#0f172a;padding:24px;border-radius:8px;min-height:200px">
+        <div style="font-family:system-ui;font-size:12px;color:#38bdf8;margin-bottom:12px;font-weight:700;letter-spacing:2px">✦ AI LEARNING HUB</div>
+        <div style="background:linear-gradient(135deg,#1e293b,#334155);padding:16px;border-radius:12px;margin-bottom:8px;border:1px solid #38bdf8">
+          <div style="color:#f1f5f9;font-size:14px;font-weight:bold;margin-bottom:4px">GPT-5 发布倒计时</div>
+          <div style="color:#94a3b8;font-size:11px">OpenAI 最新动态追踪...</div>
+        </div>
+        <div style="background:linear-gradient(135deg,#1e293b,#334155);padding:16px;border-radius:12px;margin-bottom:8px;border:1px solid #38bdf8">
+          <div style="color:#f1f5f9;font-size:14px;font-weight:bold;margin-bottom:4px">GitHub Trending</div>
+          <div style="color:#94a3b8;font-size:11px">本周最火开源项目...</div>
+        </div>
+        <div style="display:flex;gap:8px;margin-top:12px">
+          <div style="background:#38bdf8;color:#0f172a;padding:8px 16px;border-radius:8px;font-size:10px;font-weight:bold">🔥 热门</div>
+          <div style="background:transparent;color:#38bdf8;padding:8px 16px;border-radius:8px;font-size:10px;border:1px solid #38bdf8">🆕 最新</div>
+          <div style="background:transparent;color:#38bdf8;padding:8px 16px;border-radius:8px;font-size:10px;border:1px solid #38bdf8">⭐ 精选</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C. 暗色现代融合风 (Hybrid)</h3>
+      <p>暗色背景 + 现代卡片设计 + 亮色强调</p>
+      <div class="pros-cons">
+        <div class="pros"><h4>Pros</h4><ul><li>兼具极客感和专业感</li><li>暗色护眼 + 现代布局</li><li>视觉冲击力强</li></ul></div>
+        <div class="cons"><h4>Cons</h4><ul><li>设计复杂度略高</li><li>需要精心调色</li></ul></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section">
+  <p style="color:#94a3b8;font-size:14px;text-align:center">💡 <strong>推荐 C（暗色现代融合风）</strong> — AI开发者是核心用户，暗色是他们的舒适区，但用现代卡片式布局保持专业感，不会显得像黑客主题公园。</p>
+</div>

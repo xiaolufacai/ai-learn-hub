@@ -1,0 +1,5 @@
+host:154.217.245.247
+dbbane:ds
+user:ds
+password:brFHxS2Sa7J2XapM
+port:3306
