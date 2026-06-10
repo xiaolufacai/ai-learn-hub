@@ -33,10 +33,19 @@ EOF
 fi
 echo "✅ .env 已就绪"
 
-# ========== 2. 安装依赖 ==========
-echo "📦 安装 Next.js 依赖..."
-cd "$APP_DIR"
-/usr/local/bin/npm install 2>&1 | tail -5
+# ========== 2. 安装依赖（仅 package.json 变动时） ==========
+PKG_HASH=$(md5sum "$APP_DIR/package.json" 2>/dev/null | cut -d' ' -f1)
+CACHE_FILE="$PROJECT_DIR/.pkg_hash"
+
+if [ -f "$CACHE_FILE" ] && [ "$(cat "$CACHE_FILE")" = "$PKG_HASH" ] && [ -d "$APP_DIR/node_modules" ]; then
+    echo "✅ 依赖未变动，跳过安装"
+else
+    echo "📦 安装依赖（package.json 已变动）..."
+    cd "$APP_DIR"
+    NODE_OPTIONS="--max-old-space-size=256" /usr/local/bin/npm install --prefer-offline --no-audit --no-fund 2>&1 | tail -5
+    echo "$PKG_HASH" > "$CACHE_FILE"
+    echo "✅ 安装完成"
+fi
 
 # ========== 3. 生成 Prisma + 同步表结构 ==========
 echo "🗄️  同步数据库..."
@@ -59,7 +68,7 @@ const{PrismaClient}=require('@prisma/client');
 if [ "$NEWS_COUNT" = "0" ]; then
     echo "📥 导入初始数据..."
     cd "$SCRIPTS_DIR"
-    /usr/local/bin/npm install --silent 2>&1 | tail -3
+    NODE_OPTIONS="--max-old-space-size=256" /usr/local/bin/npm install --silent --prefer-offline --no-audit --no-fund 2>&1 | tail -3
     /usr/local/bin/npx prisma generate --schema=./prisma/schema.prisma 2>&1 | tail -3
     DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" /usr/local/bin/npx tsx sync-news.ts
     DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" /usr/local/bin/npx tsx sync-x.ts
@@ -75,8 +84,9 @@ fi
 chown -R www:www "$PROJECT_DIR" 2>/dev/null || true
 
 # ========== 6. 构建 ==========
-echo "🔨 构建项目..."
-/usr/local/bin/npm run build 2>&1 | tail -5
+echo "🔨 构建项目（跳过 lint 节省资源）..."
+cd "$APP_DIR"
+NODE_OPTIONS="--max-old-space-size=384" /usr/local/bin/npm run build 2>&1 | tail -10
 
 # ========== 7. 安装 systemd 服务并启动 ==========
 echo "🚀 安装 systemd 服务..."
