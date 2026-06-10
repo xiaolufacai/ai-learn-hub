@@ -21,6 +21,7 @@ echo "=========================================="
 echo "  AI Learning Hub 部署"
 echo "=========================================="
 log "Node.js $(node -v)"
+mkdir -p "$PROJECT_DIR/logs"
 echo ""
 
 # ===== 1. 拉取最新代码 =====
@@ -130,7 +131,17 @@ sleep 5
 echo ""
 systemctl status "$SERVICE_NAME" --no-pager -l
 
-# ===== 8. 验证 =====
+# ===== 8. 配置定时同步 cron（每小时） =====
+echo ""
+echo "⏰ 配置定时同步..."
+cat > /etc/cron.d/ai-hub-sync << CRONEOF
+SHELL=/bin/bash
+0 * * * * root bash $SCRIPTS_DIR/sync-cron.sh >> $PROJECT_DIR/logs/sync.log 2>&1
+CRONEOF
+systemctl restart crond 2>/dev/null || service cron restart 2>/dev/null || true
+log "cron 已配置（每小时同步一次）"
+
+# ===== 9. 验证 =====
 HTTP=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 2>/dev/null || echo "000")
 echo ""
 if [ "$HTTP" = "200" ] || [ "$HTTP" = "304" ]; then
