@@ -85,10 +85,30 @@ else
     log "数据库已有 $NEWS_COUNT 条新闻"
 fi
 
-# ===== 6. 构建 =====
+# ===== 6. 构建（低内存：设 swap + 单线程） =====
 echo "🔨 构建..."
 cd "$APP_DIR"
-NODE_OPTIONS="--max-old-space-size=384" npm run build 2>&1 | tail -10
+
+# 临时 swap（如 server 内存 < 1GB）
+if [ ! -f /swapfile ]; then
+    fallocate -l 512M /swapfile 2>/dev/null && chmod 600 /swapfile && mkswap /swapfile 2>/dev/null && swapon /swapfile && log "已添加 512MB swap" || true
+fi
+
+# 关键：单线程 + 低内存避免 SIGBUS
+NODE_OPTIONS="--max-old-space-size=192" \
+NEXT_TELEMETRY_DISABLED=1 \
+CI=true \
+npm run build
+BUILD_EXIT=$?
+
+if [ "$BUILD_EXIT" -ne 0 ]; then
+    echo ""
+    err "构建失败 (exit=$BUILD_EXIT)，可能是内存不足。尝试:"
+    echo "   free -h                       查看内存"
+    echo "   swapon /swapfile              启用临时 swap"
+    echo "   NODE_OPTIONS=--max-old-space-size=192 npm run build"
+    exit 1
+fi
 log "构建完成"
 
 # ===== 7. 安装 systemd 服务 =====
