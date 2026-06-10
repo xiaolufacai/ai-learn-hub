@@ -1,55 +1,65 @@
 #!/bin/bash
-#
-# AI Learning Hub — 一键部署脚本
-# 前提：已完成 git clone 到 /www/wwwroot/ds.xiaolu.ink
-# 用法：bash deploy.sh
-#
-
+# ==============================================
+# AI Learning Hub — 一键部署
+# 用法: bash deploy.sh
+# ==============================================
 set -e
 
-# ========== 配置 ==========
 PROJECT_DIR="/www/wwwroot/ds.xiaolu.ink"
 APP_DIR="$PROJECT_DIR/deploy/nextjs"
 SCRIPTS_DIR="$PROJECT_DIR/deploy/scripts"
 NODE_BIN="/root/.nvm/versions/node/v18.20.8/bin"
 export PATH="$NODE_BIN:$PATH"
+SERVICE_NAME="ai-hub"
 
-NODE_VER=$(node -v)
-echo "✅ Node.js $NODE_VER"
+RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'; NC='\033[0m'
+log()  { echo -e "${GREEN}[✓]${NC} $1"; }
+warn() { echo -e "${YELLOW}[!]${NC} $1"; }
+err()  { echo -e "${RED}[✗]${NC} $1"; }
+
+echo "=========================================="
+echo "  AI Learning Hub 部署"
+echo "=========================================="
+log "Node.js $(node -v)"
 echo ""
 
-# ========== 1. 创建 .env ==========
+# ===== 1. 拉取最新代码 =====
+echo "📥 拉取代码..."
+cd "$PROJECT_DIR"
+git pull 2>&1 | tail -3
+log "代码已更新"
+
+# ===== 2. .env =====
 if [ ! -f "$APP_DIR/.env" ]; then
     echo "📝 创建 .env..."
     cat > "$APP_DIR/.env" << 'EOF'
 DATABASE_URL=mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds
 EOF
 fi
-echo "✅ .env 已就绪"
+log ".env 就绪"
 
-# ========== 2. 安装依赖（仅 package.json 变动时） ==========
+# ===== 3. 安装依赖（仅 package.json 变动时） =====
 PKG_HASH=$(md5sum "$APP_DIR/package.json" 2>/dev/null | cut -d' ' -f1)
 CACHE_FILE="$PROJECT_DIR/.pkg_hash"
 
 if [ -f "$CACHE_FILE" ] && [ "$(cat "$CACHE_FILE")" = "$PKG_HASH" ] && [ -d "$APP_DIR/node_modules" ]; then
-    echo "✅ 依赖未变动，跳过安装"
+    log "依赖未变动，跳过安装"
 else
-    echo "📦 安装依赖（package.json 已变动）..."
+    echo "📦 安装依赖（package.json 有变动）..."
     cd "$APP_DIR"
     NODE_OPTIONS="--max-old-space-size=256" npm install --prefer-offline --no-audit --no-fund 2>&1 | tail -5
     echo "$PKG_HASH" > "$CACHE_FILE"
-    echo "✅ 安装完成"
+    log "依赖安装完成"
 fi
 
-# ========== 3. 生成 Prisma + 同步表结构 ==========
+# ===== 4. 数据库 =====
 echo "🗄️  同步数据库..."
 cd "$APP_DIR"
-npx prisma generate
-npx prisma db push
-echo "✅ 数据库表结构已同步"
+npx prisma generate 2>&1 | tail -2
+npx prisma db push 2>&1 | tail -2
+log "数据库就绪"
 
-# ========== 4. 初始化数据（仅空库时） ==========
-echo "🔍 检查数据..."
+# ===== 5. 初始化数据（仅首次） =====
 NEWS_COUNT=$(node -e "
 const{PrismaClient}=require('@prisma/client');
 (async()=>{
@@ -63,37 +73,56 @@ const{PrismaClient}=require('@prisma/client');
 if [ "$NEWS_COUNT" = "0" ]; then
     echo "📥 导入初始数据..."
     cd "$SCRIPTS_DIR"
-    NODE_OPTIONS="--max-old-space-size=256" npm install --silent --prefer-offline --no-audit --no-fund 2>&1 | tail -3
-    npx prisma generate --schema=./prisma/schema.prisma 2>&1 | tail -3
+    NODE_OPTIONS="--max-old-space-size=256" npm install --silent --prefer-offline --no-audit --no-fund 2>&1 | tail -2
+    npx prisma generate --schema=./prisma/schema.prisma 2>&1 | tail -2
     DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" npx tsx sync-news.ts
     DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" npx tsx sync-x.ts
     DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" npx tsx sync-linuxdo.ts
     DATABASE_URL="mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds" npx tsx sync-github.ts
     cd "$APP_DIR"
-    echo "✅ 初始数据导入完成"
+    log "初始数据导入完成"
 else
-    echo "✅ 数据库已有 $NEWS_COUNT 条新闻，跳过初始化"
+    log "数据库已有 $NEWS_COUNT 条新闻"
 fi
 
-# ========== 5. 权限 ==========
-chown -R www:www "$PROJECT_DIR" 2>/dev/null || true
-
-# ========== 6. 构建 ==========
-echo "🔨 构建项目..."
+# ===== 6. 构建 =====
+echo "🔨 构建..."
 cd "$APP_DIR"
 NODE_OPTIONS="--max-old-space-size=384" npm run build 2>&1 | tail -10
+log "构建完成"
 
-# ========== 7. 安装 systemd 服务并启动 ==========
+# ===== 7. 安装 systemd 服务 =====
 echo "🚀 启动服务..."
-bash "$SCRIPTS_DIR/sys.sh"
+cat > /etc/systemd/system/$SERVICE_NAME.service << SERVICEEOF
+[Unit]
+Description=AI Learning Hub
+After=network.target
 
+[Service]
+Type=simple
+User=root
+ExecStart=/bin/bash -c "cd $APP_DIR && PATH=$NODE_BIN:\$PATH NODE_ENV=production PORT=3000 DATABASE_URL=mysql://ds:brFHxS2Sa7J2XapM@127.0.0.1:3306/ds $NODE_BIN/npm start"
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+SERVICEEOF
+
+systemctl daemon-reload
+systemctl enable "$SERVICE_NAME"
+systemctl restart "$SERVICE_NAME"
+
+sleep 5
 echo ""
-echo "=========================================="
-echo "✅ 部署完成！"
+systemctl status "$SERVICE_NAME" --no-pager -l
+
+# ===== 8. 验证 =====
+HTTP=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:3000 2>/dev/null || echo "000")
 echo ""
-echo "  常用命令:"
-echo "    systemctl status ai-hub    查看状态"
-echo "    journalctl -u ai-hub -f    查看日志"
-echo "    systemctl restart ai-hub   重启服务"
-echo "    bash deploy.sh             重新部署"
-echo "=========================================="
+if [ "$HTTP" = "200" ] || [ "$HTTP" = "304" ]; then
+    echo "✅ 部署成功 — http://localhost:3000 (HTTP $HTTP)"
+else
+    err "HTTP $HTTP — 查看日志: journalctl -u $SERVICE_NAME -n 30"
+    exit 1
+fi
