@@ -14,7 +14,7 @@ After=network.target
 
 [Service]
 Type=simple
-User=www
+User=root
 WorkingDirectory=$APP_DIR
 Environment=PATH=$NODE_BIN:/usr/local/bin:/usr/bin:/bin
 ExecStart=$NODE_BIN/npm start
