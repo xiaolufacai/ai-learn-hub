@@ -1,5 +1,6 @@
 node_modules/
-.next/
+# .next/cache is huge and platform-specific, but we need the build output
+.next/cache/
 .env
 *.log
 dist/

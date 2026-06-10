@@ -1,0 +1,10 @@
+{
+  "/mcp/page": "app/mcp/page.js",
+  "/page": "app/page.js",
+  "/news/page": "app/news/page.js",
+  "/linuxdo/page": "app/linuxdo/page.js",
+  "/news/[slug]/page": "app/news/[slug]/page.js",
+  "/knowledge/page": "app/knowledge/page.js",
+  "/trending/page": "app/trending/page.js",
+  "/tools/page": "app/tools/page.js"
+}

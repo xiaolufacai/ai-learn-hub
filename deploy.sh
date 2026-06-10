@@ -85,31 +85,24 @@ else
     log "数据库已有 $NEWS_COUNT 条新闻"
 fi
 
-# ===== 6. 构建（低内存：设 swap + 单线程） =====
-echo "🔨 构建..."
-cd "$APP_DIR"
+# ===== 6. 构建（如 .next 不存在则尝试本地构建，否则跳过） =====
+if [ -d "$APP_DIR/.next/BUILD_ID" ] || [ -f "$APP_DIR/.next/BUILD_ID" ]; then
+    log "已有预构建，跳过 build"
+else
+    echo "🔨 本地构建..."
+    cd "$APP_DIR"
 
-# 临时 swap（如 server 内存 < 1GB）
-if [ ! -f /swapfile ]; then
-    fallocate -l 512M /swapfile 2>/dev/null && chmod 600 /swapfile && mkswap /swapfile 2>/dev/null && swapon /swapfile && log "已添加 512MB swap" || true
+    # 临时 swap（低内存 server）
+    if [ ! -f /swapfile ]; then
+        fallocate -l 512M /swapfile 2>/dev/null && chmod 600 /swapfile && mkswap /swapfile 2>/dev/null && swapon /swapfile && log "已添加 512MB swap" || true
+    fi
+
+    NODE_OPTIONS="--max-old-space-size=192" NEXT_WORKERS=1 CI=true npm run build || {
+        err "构建失败（内存不足），请在本地 build 然后把 .next 提交到 git"
+        exit 1
+    }
+    log "构建完成"
 fi
-
-# 关键：单线程 + 低内存避免 SIGBUS
-NODE_OPTIONS="--max-old-space-size=192" \
-NEXT_TELEMETRY_DISABLED=1 \
-CI=true \
-npm run build
-BUILD_EXIT=$?
-
-if [ "$BUILD_EXIT" -ne 0 ]; then
-    echo ""
-    err "构建失败 (exit=$BUILD_EXIT)，可能是内存不足。尝试:"
-    echo "   free -h                       查看内存"
-    echo "   swapon /swapfile              启用临时 swap"
-    echo "   NODE_OPTIONS=--max-old-space-size=192 npm run build"
-    exit 1
-fi
-log "构建完成"
 
 # ===== 7. 安装 systemd 服务 =====
 echo "🚀 启动服务..."
