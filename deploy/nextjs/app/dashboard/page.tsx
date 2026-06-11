@@ -8,7 +8,7 @@ import { WordCloud } from "@/components/dashboard/word-cloud";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "AI 驾驶舱",
+  title: "AI 仪表盘",
   description: "AI 行业全景仪表盘 — 实时追踪 AI 新闻、舆情、GitHub 热门项目",
 };
 
@@ -18,7 +18,7 @@ export default function DashboardPage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary mb-1">🚀 AI 驾驶舱</h1>
+          <h1 className="text-2xl font-bold text-text-primary mb-1">🚀 AI 仪表盘</h1>
           <p className="text-sm text-text-muted">全行业 AI 动态一览</p>
         </div>
         <span className="text-xs text-text-muted pill">
