@@ -161,3 +161,20 @@ model LinuxDoPost {
   @@index([category])
   @@map("linuxdo_posts")
 }
+
+model SentimentAnalysis {
+  id                Int      @id @default(autoincrement())
+  news_slug         String   @unique @db.VarChar(255)
+  positive_pct      Int
+  negative_pct      Int
+  neutral_pct       Int
+  supporting_views  Json?
+  opposing_views    Json?
+  neutral_views     Json?
+  key_controversies Json?
+  trend_judgment    String?  @db.Text
+  overall_summary   String?  @db.Text
+  analyzed_at       DateTime @default(now())
+
+  @@map("sentiment_analysis")
+}

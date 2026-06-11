@@ -139,3 +139,29 @@ export type SearchResult =
   | { type: "linuxdo"; item: LinuxDoPost };
 
 export type ContentCategory = "all" | "llm" | "agents" | "tools" | "multimodal" | "open-source" | "research";
+
+export interface ViewPoint {
+  point: string;
+  influence_score: number;
+  source_quote: string;
+}
+
+export interface Controversy {
+  topic: string;
+  detail: string;
+}
+
+export interface SentimentAnalysis {
+  id: number;
+  news_slug: string;
+  positive_pct: number;
+  negative_pct: number;
+  neutral_pct: number;
+  supporting_views: any;
+  opposing_views: any;
+  neutral_views: any;
+  key_controversies: any;
+  trend_judgment: string | null;
+  overall_summary: string | null;
+  analyzed_at: Date;
+}

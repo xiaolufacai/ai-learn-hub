@@ -15,12 +15,14 @@ import {
   ChevronRight,
   Twitter,
   Terminal,
+  BarChart3,
 } from "lucide-react";
 import { useState } from "react";
 
 const navItems = [
   { href: "/", label: "首页", icon: Home },
   { href: "/news", label: "AI 新闻", icon: Newspaper },
+  { href: "/sentiment", label: "AI 舆情", icon: BarChart3 },
   { href: "/x", label: "X 动态", icon: Twitter },
   { href: "/trending", label: "Trending", icon: TrendingUp },
   { href: "/linuxdo", label: "Linux.do", icon: Terminal },

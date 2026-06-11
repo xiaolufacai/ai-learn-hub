@@ -166,3 +166,15 @@ export async function getLinuxDoPosts(limit = 30) {
 export async function getLinuxDoPostBySlug(slug: string) {
   return prisma.linuxDoPost.findUnique({ where: { slug } });
 }
+
+// --- Sentiment Analysis ---
+export async function getSentimentAnalyses(limit = 20) {
+  return prisma.sentimentAnalysis.findMany({
+    orderBy: { analyzed_at: "desc" },
+    take: limit,
+  });
+}
+
+export async function getSentimentBySlug(slug: string) {
+  return prisma.sentimentAnalysis.findUnique({ where: { news_slug: slug } });
+}
