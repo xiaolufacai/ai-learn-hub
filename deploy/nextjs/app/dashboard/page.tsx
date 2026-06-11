@@ -62,8 +62,18 @@ export default async function DashboardPage() {
     return { day, positive: a.positive_pct, negative: a.negative_pct, neutral: a.neutral_pct };
   });
 
-  // Hot keywords: aggregate from news keywords
+  // Build news title map for sentiment briefs
   const allNews = await getLatestNews(100);
+  const newsMap = new Map(allNews.map((n: any) => [n.slug, n.title]));
+  const sentimentBriefs = latestSentiments.map((a: any) => ({
+    news_slug: a.news_slug,
+    title: newsMap.get(a.news_slug) || a.news_slug.replace(/-/g, " "),
+    overall_summary: a.overall_summary,
+    positive_pct: a.positive_pct,
+    negative_pct: a.negative_pct,
+  }));
+
+  // Hot keywords: aggregate from news keywords (reuse allNews already fetched)
   const kwCounts: Record<string, number> = {};
   allNews.forEach((n: any) => {
     const kws = typeof n.keywords === "string" ? JSON.parse(n.keywords) : (n.keywords || []);
@@ -127,13 +137,7 @@ export default async function DashboardPage() {
             <h2 className="text-sm font-semibold text-text-primary">💬 最新舆情摘要</h2>
             <Link href="/sentiment" className="text-xs text-accent hover:text-accent-purple transition-colors">全部舆情 →</Link>
           </div>
-          <SentimentBriefs briefs={latestSentiments.map((a: any) => ({
-            news_slug: a.news_slug,
-            title: a.news_slug.replace(/-/g, " ").slice(0, 40),
-            overall_summary: a.overall_summary,
-            positive_pct: a.positive_pct,
-            negative_pct: a.negative_pct,
-          }))} />
+          <SentimentBriefs briefs={sentimentBriefs} />
         </div>
       </div>
 

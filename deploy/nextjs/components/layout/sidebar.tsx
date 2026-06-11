@@ -23,7 +23,7 @@ import { useState } from "react";
 
 const navItems = [
   { href: "/dashboard", label: "驾驶舱", icon: LayoutDashboard },
-  { href: "/", label: "首页", icon: Home },
+  { href: "/", label: "最新动态", icon: Home },
   { href: "/news", label: "AI 新闻", icon: Newspaper },
   { href: "/sentiment", label: "AI 舆情", icon: BarChart3 },
   { href: "/x", label: "X 动态", icon: Twitter },

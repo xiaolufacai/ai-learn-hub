@@ -1,7 +1,10 @@
 {
   "/trending/page": "app/trending/page.js",
   "/page": "app/page.js",
-  "/knowledge/page": "app/knowledge/page.js",
   "/news/page": "app/news/page.js",
-  "/dashboard/page": "app/dashboard/page.js"
+  "/sentiment/page": "app/sentiment/page.js",
+  "/news/[slug]/page": "app/news/[slug]/page.js",
+  "/knowledge/page": "app/knowledge/page.js",
+  "/mcp/page": "app/mcp/page.js",
+  "/tools/page": "app/tools/page.js"
 }
