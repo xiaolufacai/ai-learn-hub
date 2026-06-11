@@ -189,7 +189,7 @@ async function main() {
         slug: r.slug,
         seo_title: `${r.repo_name} - GitHub Trending AI Project`,
         meta_description: (r.description || "").slice(0, 160),
-        keywords: [r.category, r.language?.toLowerCase() || "ai", "github", "trending", "open-source"].filter(Boolean),
+        keywords: JSON.stringify([r.category, r.language?.toLowerCase() || "ai", "github", "trending", "open-source"].filter(Boolean)),
         created_at: new Date(),
       },
     });

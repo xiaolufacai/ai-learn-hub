@@ -50,11 +50,11 @@ function generatePost(influencer: typeof INFLUENCERS[number], index: number) {
     replies: Math.floor(Math.random() * 300) + 10,
     url: `https://x.com${influencer.handle}/status/${now - hoursAgo * 1000}`,
     category: ["llm", "agents", "tools", "research", "open-source", "news"][Math.floor(Math.random() * 6)],
-    media_urls: [],
+    media_urls: "[]",
     slug,
     seo_title: `${influencer.name}: ${content.slice(0, 60)}...`,
     meta_description: content.slice(0, 160),
-    keywords: [topic.toLowerCase(), influencer.handle, "AI", "X"],
+    keywords: JSON.stringify([topic.toLowerCase(), influencer.handle, "AI", "X"]),
     published_at: publishedAt,
     created_at: publishedAt,
   };

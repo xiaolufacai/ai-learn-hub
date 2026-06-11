@@ -85,7 +85,7 @@ async function main() {
       content: generateContent(t.tags),
       author: AUTHORS[i % AUTHORS.length],
       category: t.category,
-      tags: t.tags,
+      tags: JSON.stringify(t.tags),
       replies: Math.floor(Math.random() * 150) + 5,
       views: Math.floor(Math.random() * 30000) + 500,
       likes: Math.floor(Math.random() * 400) + 10,
@@ -93,7 +93,7 @@ async function main() {
       slug,
       seo_title: `${t.title} — Linux.do 技术社区`,
       meta_description: `Linux.do 社区关于 ${t.tags.slice(0, 2).join("、")} 的热门讨论帖`,
-      keywords: t.tags,
+      keywords: JSON.stringify(t.tags),
       published_at: publishedAt,
       created_at: publishedAt,
     };
