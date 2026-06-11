@@ -11,8 +11,11 @@ export const dynamic = "force-dynamic";
 
 export default async function SentimentPage() {
   const analyses = await getSentimentAnalyses(30);
-  const newsList = await getLatestNews(30);
-  const newsMap = new Map(newsList.map((n) => [n.slug, n]));
+  let newsMap = new Map();
+  try {
+    const newsList = await getLatestNews(30);
+    newsMap = new Map(newsList.map((n) => [n.slug, n]));
+  } catch { /* DB unreachable, cards won't show news titles */ }
 
   return (
     <div className="animate-fade-in">

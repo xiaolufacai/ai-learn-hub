@@ -12,10 +12,11 @@ export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   const analysis = await getSentimentBySlug(params.slug);
-  const news = await getNewsBySlug(params.slug);
   if (!analysis) return { title: "舆情未找到" };
+  let title = params.slug;
+  try { const n = await getNewsBySlug(params.slug); title = n?.title || params.slug; } catch { /* ignore */ }
   return {
-    title: `${news?.title || params.slug} — AI 舆情`,
+    title: `${title} — AI 舆情`,
     description: analysis.overall_summary || "AI 新闻舆情分析",
   };
 }
@@ -24,7 +25,8 @@ export default async function SentimentDetailPage({ params }: { params: { slug: 
   const analysis = await getSentimentBySlug(params.slug);
   if (!analysis) notFound();
 
-  const news = await getNewsBySlug(params.slug);
+  let news = null;
+  try { news = await getNewsBySlug(params.slug); } catch { /* DB unreachable, use mock data */ }
   const controversies = (analysis.key_controversies as unknown as Controversy[]) || [];
   const supporting = (analysis.supporting_views as unknown as any[]) || [];
   const opposing = (analysis.opposing_views as unknown as any[]) || [];

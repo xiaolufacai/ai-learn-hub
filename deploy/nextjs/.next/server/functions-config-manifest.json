@@ -1,1 +1,1 @@
-{"version":1,"functions":{"/linuxdo":{},"/knowledge":{},"/knowledge/[slug]":{},"/mcp":{},"/news":{},"/news/[slug]":{},"/":{},"/sentiment":{},"/sentiment/[slug]":{},"/tools":{},"/trending":{},"/search":{},"/x":{},"/x/[slug]":{},"/linuxdo/[slug]":{}}}
+{"version":1,"functions":{"/linuxdo/[slug]":{},"/dashboard":{},"/linuxdo":{},"/news/[slug]":{},"/mcp":{},"/news":{},"/sentiment/[slug]":{},"/search":{},"/tools":{},"/":{},"/sentiment":{},"/trending":{},"/x":{},"/x/[slug]":{},"/knowledge":{},"/knowledge/[slug]":{}}}
