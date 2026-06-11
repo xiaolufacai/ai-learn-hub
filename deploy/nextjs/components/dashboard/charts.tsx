@@ -1,12 +1,18 @@
 "use client";
 
-import { MOCK_DASHBOARD } from "@/lib/dashboard-data";
+import { cn } from "@/lib/utils";
+
+interface CategoryItem {
+  category: string;
+  label: string;
+  count: number;
+  color: string;
+}
 
 const barColors = ["from-blue-500 to-cyan-400", "from-violet-500 to-purple-400", "from-amber-500 to-orange-400", "from-emerald-500 to-teal-400", "from-rose-500 to-pink-400", "from-indigo-500 to-blue-400"];
 
-export function CategoryDistribution() {
-  const items = MOCK_DASHBOARD.categoryDistribution;
-  const max = Math.max(...items.map((i) => i.count));
+export function CategoryDistribution({ items }: { items: CategoryItem[] }) {
+  const max = Math.max(...items.map((i) => i.count), 1);
 
   return (
     <div className="space-y-3">
@@ -15,7 +21,7 @@ export function CategoryDistribution() {
           <span className="text-xs text-text-muted w-14 flex-shrink-0">{item.label}</span>
           <div className="flex-1 h-5 bg-surface-hover rounded-full overflow-hidden relative">
             <div
-              className={`h-full rounded-full bg-gradient-to-r ${item.color} transition-all duration-700`}
+              className={`h-full rounded-full bg-gradient-to-r ${item.color || barColors[i % barColors.length]} transition-all duration-700`}
               style={{ width: `${(item.count / max) * 100}%` }}
             />
           </div>
@@ -26,9 +32,14 @@ export function CategoryDistribution() {
   );
 }
 
-export function SentimentTrend() {
-  const data = MOCK_DASHBOARD.weeklySentiment;
+interface SentimentDay {
+  day: string;
+  positive: number;
+  negative: number;
+  neutral: number;
+}
 
+export function SentimentTrend({ data }: { data: SentimentDay[] }) {
   return (
     <div className="flex items-end gap-3 h-40">
       {data.map((d) => (

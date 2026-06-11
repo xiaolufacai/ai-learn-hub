@@ -1,4 +1,4 @@
-import { TrendingUp, TrendingDown, Newspaper, Github, Smile, MessageCircle } from "lucide-react";
+import { Newspaper, Github, Smile, MessageCircle, TrendingUp, TrendingDown } from "lucide-react";
 
 interface StatCardProps {
   icon: React.ElementType;
@@ -24,17 +24,6 @@ export function StatCard({ icon: Icon, label, value, trend, color }: StatCardPro
       </div>
       <p className="text-2xl font-bold text-text-primary mb-1 font-mono">{value}</p>
       <p className="text-xs text-text-muted">{label}</p>
-    </div>
-  );
-}
-
-export function DashboardStatCards() {
-  return (
-    <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-      <StatCard icon={Newspaper}   label="本周 AI 新闻"        value={25}   trend={{ direction: "up", pct: 12 }} color="bg-gradient-to-br from-blue-500 to-cyan-400" />
-      <StatCard icon={Github}      label="GitHub 热门项目"      value={25}   trend={{ direction: "up", pct: 8 }}  color="bg-gradient-to-br from-violet-500 to-purple-400" />
-      <StatCard icon={Smile}       label="社区正面情绪"        value="69%"  trend={{ direction: "up", pct: 5 }}  color="bg-gradient-to-br from-emerald-500 to-teal-400" />
-      <StatCard icon={MessageCircle} label="活跃讨论数"        value={847}  trend={{ direction: "up", pct: 18 }} color="bg-gradient-to-br from-amber-500 to-orange-400" />
     </div>
   );
 }

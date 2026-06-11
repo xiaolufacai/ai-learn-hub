@@ -1,7 +1,7 @@
 {
   "/trending/page": "app/trending/page.js",
   "/page": "app/page.js",
-  "/tools/page": "app/tools/page.js",
   "/knowledge/page": "app/knowledge/page.js",
+  "/news/page": "app/news/page.js",
   "/dashboard/page": "app/dashboard/page.js"
 }
