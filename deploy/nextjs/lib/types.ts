@@ -165,3 +165,24 @@ export interface SentimentAnalysis {
   overall_summary: string | null;
   analyzed_at: Date;
 }
+
+export interface StackOverflowQuestion {
+  id: number;
+  question_id: number;
+  title: string;
+  body: string | null;
+  tags: any;
+  votes: number;
+  answers: number;
+  views: number;
+  url: string;
+  author_name: string;
+  author_reputation: number | null;
+  accepted_answer: string | null;
+  slug: string;
+  seo_title: string | null;
+  meta_description: string | null;
+  keywords: any;
+  asked_at: Date;
+  created_at: Date;
+}

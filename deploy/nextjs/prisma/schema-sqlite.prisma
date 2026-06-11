@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AiNews {
+  id               Int      @id @default(autoincrement())
+  title            String
+  summary          String
+  content_mdx      String?
+  source           String
+  url              String?
+  category         String
+  image_url        String?
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
+  published_at     DateTime @default(now())
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("ai_news")
+}
+
+model GithubProject {
+  id               Int      @id @default(autoincrement())
+  repo_name        String
+  description      String
+  stars            Int
+  growth           Int
+  category         String
+  language         String
+  url              String
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("github_projects")
+}
+
+model AiTool {
+  id               Int      @id @default(autoincrement())
+  name             String
+  description      String
+  category         String
+  pricing          String
+  url              String
+  features         String?
+  logo_url         String?
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("ai_tools")
+}
+
+model McpServer {
+  id               Int      @id @default(autoincrement())
+  name             String
+  description      String
+  github_url       String
+  category         String
+  install_cmd      String
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("mcp_servers")
+}
+
+model AiBook {
+  id               Int      @id @default(autoincrement())
+  title            String
+  author           String
+  description      String
+  category         String
+  url              String
+  rating           Float
+  cover_url        String?
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("ai_books")
+}
+
+model KnowledgeArticle {
+  id               Int      @id @default(autoincrement())
+  title            String
+  content_mdx      String
+  category         String
+  tags             String?
+  summary          String
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("knowledge_articles")
+}
+
+model XPost {
+  id               Int      @id @default(autoincrement())
+  author_name      String
+  author_handle    String
+  content          String
+  likes            Int      @default(0)
+  retweets         Int      @default(0)
+  replies          Int      @default(0)
+  url              String
+  category         String
+  media_urls       String?
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
+  published_at     DateTime @default(now())
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("x_posts")
+}
+
+model LinuxDoPost {
+  id               Int      @id @default(autoincrement())
+  title            String
+  content          String
+  author           String
+  category         String
+  tags             String?
+  replies          Int      @default(0)
+  views            Int      @default(0)
+  likes            Int      @default(0)
+  url              String
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
+  published_at     DateTime @default(now())
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("linuxdo_posts")
+}
+
+model SentimentAnalysis {
+  id                Int      @id @default(autoincrement())
+  news_slug         String   @unique
+  positive_pct      Int
+  negative_pct      Int
+  neutral_pct       Int
+  supporting_views  String?
+  opposing_views    String?
+  neutral_views     String?
+  key_controversies String?
+  trend_judgment    String?
+  overall_summary   String?
+  analyzed_at       DateTime @default(now())
+
+  @@map("sentiment_analysis")
+}

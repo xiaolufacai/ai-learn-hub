@@ -17,7 +17,7 @@ echo "════════════════════════�
 
 cd "$SCRIPTS_DIR"
 
-for script in sync-github.ts sync-news.ts sync-x.ts sync-linuxdo.ts sync-sentiment.ts; do
+for script in sync-github.ts sync-news.ts sync-x.ts sync-linuxdo.ts sync-sentiment.ts sync-stackoverflow.ts; do
     echo "[$TIMESTAMP] ▶ $script..."
     if npx tsx "$SCRIPTS_DIR/$script" 2>&1; then
         echo "[$TIMESTAMP] ✅ $script OK"

@@ -1,0 +1,180 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model AiNews {
+  id               Int      @id @default(autoincrement())
+  title            String   @db.Text
+  summary          String   @db.Text
+  content_mdx      String?  @db.LongText
+  source           String   @db.VarChar(255)
+  url              String?  @db.VarChar(500)
+  category         String   @db.VarChar(50)
+  image_url        String?  @db.VarChar(500)
+  slug             String   @unique @db.VarChar(255)
+  seo_title        String?  @db.VarChar(255)
+  meta_description String?  @db.VarChar(500)
+  keywords         Json?
+  published_at     DateTime @default(now())
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("ai_news")
+}
+
+model GithubProject {
+  id               Int      @id @default(autoincrement())
+  repo_name        String   @db.VarChar(255)
+  description      String   @db.Text
+  stars            Int
+  growth           Int
+  category         String   @db.VarChar(50)
+  language         String   @db.VarChar(50)
+  url              String   @db.VarChar(500)
+  slug             String   @unique @db.VarChar(255)
+  seo_title        String?  @db.VarChar(255)
+  meta_description String?  @db.VarChar(500)
+  keywords         Json?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("github_projects")
+}
+
+model AiTool {
+  id               Int      @id @default(autoincrement())
+  name             String   @db.VarChar(255)
+  description      String   @db.Text
+  category         String   @db.VarChar(50)
+  pricing          String   @db.VarChar(100)
+  url              String   @db.VarChar(500)
+  features         Json?
+  logo_url         String?  @db.VarChar(500)
+  slug             String   @unique @db.VarChar(255)
+  seo_title        String?  @db.VarChar(255)
+  meta_description String?  @db.VarChar(500)
+  keywords         Json?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("ai_tools")
+}
+
+model McpServer {
+  id               Int      @id @default(autoincrement())
+  name             String   @db.VarChar(255)
+  description      String   @db.Text
+  github_url       String   @db.VarChar(500)
+  category         String   @db.VarChar(50)
+  install_cmd      String   @db.VarChar(500)
+  slug             String   @unique @db.VarChar(255)
+  seo_title        String?  @db.VarChar(255)
+  meta_description String?  @db.VarChar(500)
+  keywords         Json?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("mcp_servers")
+}
+
+model AiBook {
+  id               Int      @id @default(autoincrement())
+  title            String   @db.VarChar(255)
+  author           String   @db.VarChar(255)
+  description      String   @db.Text
+  category         String   @db.VarChar(50)
+  url              String   @db.VarChar(500)
+  rating           Float
+  cover_url        String?  @db.VarChar(500)
+  slug             String   @unique @db.VarChar(255)
+  seo_title        String?  @db.VarChar(255)
+  meta_description String?  @db.VarChar(500)
+  keywords         Json?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("ai_books")
+}
+
+model KnowledgeArticle {
+  id               Int      @id @default(autoincrement())
+  title            String   @db.VarChar(255)
+  content_mdx      String   @db.LongText
+  category         String   @db.VarChar(50)
+  tags             Json?
+  summary          String   @db.Text
+  slug             String   @unique @db.VarChar(255)
+  seo_title        String?  @db.VarChar(255)
+  meta_description String?  @db.VarChar(500)
+  keywords         Json?
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("knowledge_articles")
+}
+
+model XPost {
+  id               Int      @id @default(autoincrement())
+  author_name      String   @db.VarChar(255)
+  author_handle    String   @db.VarChar(100)
+  content          String   @db.Text
+  likes            Int      @default(0)
+  retweets         Int      @default(0)
+  replies          Int      @default(0)
+  url              String   @db.VarChar(500)
+  category         String   @db.VarChar(50)
+  media_urls       Json?
+  slug             String   @unique @db.VarChar(255)
+  seo_title        String?  @db.VarChar(255)
+  meta_description String?  @db.VarChar(500)
+  keywords         Json?
+  published_at     DateTime @default(now())
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("x_posts")
+}
+
+model LinuxDoPost {
+  id               Int      @id @default(autoincrement())
+  title            String   @db.VarChar(255)
+  content          String   @db.LongText
+  author           String   @db.VarChar(100)
+  category         String   @db.VarChar(50)
+  tags             Json?
+  replies          Int      @default(0)
+  views            Int      @default(0)
+  likes            Int      @default(0)
+  url              String   @db.VarChar(500)
+  slug             String   @unique @db.VarChar(255)
+  seo_title        String?  @db.VarChar(255)
+  meta_description String?  @db.VarChar(500)
+  keywords         Json?
+  published_at     DateTime @default(now())
+  created_at       DateTime @default(now())
+
+  @@index([category])
+  @@map("linuxdo_posts")
+}
+
+model SentimentAnalysis {
+  id                Int      @id @default(autoincrement())
+  news_slug         String   @unique @db.VarChar(255)
+  positive_pct      Int
+  negative_pct      Int
+  neutral_pct       Int
+  supporting_views  Json?
+  opposing_views    Json?
+  neutral_views     Json?
+  key_controversies Json?
+  trend_judgment    String?  @db.Text
+  overall_summary   String?  @db.Text
+  analyzed_at       DateTime @default(now())
+
+  @@map("sentiment_analysis")
+}

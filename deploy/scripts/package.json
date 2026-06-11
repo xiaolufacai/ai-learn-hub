@@ -2,6 +2,8 @@
   "private": true,
   "dependencies": {
     "@prisma/client": "^5.22.0",
+    "@types/better-sqlite3": "^7.6.13",
+    "better-sqlite3": "^12.10.0",
     "mysql2": "^3.11.0"
   },
   "devDependencies": {

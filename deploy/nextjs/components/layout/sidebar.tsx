@@ -17,6 +17,7 @@ import {
   Terminal,
   BarChart3,
   LayoutDashboard,
+  Layers,
 } from "lucide-react";
 import { useState } from "react";
 
@@ -29,6 +30,7 @@ const navItems = [
   { href: "/trending", label: "Trending", icon: TrendingUp },
   { href: "/linuxdo", label: "Linux.do", icon: Terminal },
   { href: "/tools", label: "AI 工具", icon: Wrench },
+  { href: "/stackoverflow", label: "StackOverflow", icon: Layers },
   { href: "/mcp", label: "MCP 服务器", icon: Plug },
   { href: "/knowledge", label: "知识库", icon: BookOpen },
 ];

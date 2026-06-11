@@ -3,23 +3,23 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 model AiNews {
   id               Int      @id @default(autoincrement())
-  title            String   @db.Text
-  summary          String   @db.Text
-  content_mdx      String?  @db.LongText
-  source           String   @db.VarChar(255)
-  url              String?  @db.VarChar(500)
-  category         String   @db.VarChar(50)
-  image_url        String?  @db.VarChar(500)
-  slug             String   @unique @db.VarChar(255)
-  seo_title        String?  @db.VarChar(255)
-  meta_description String?  @db.VarChar(500)
-  keywords         Json?
+  title            String
+  summary          String
+  content_mdx      String?
+  source           String
+  url              String?
+  category         String
+  image_url        String?
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
   published_at     DateTime @default(now())
   created_at       DateTime @default(now())
 
@@ -29,17 +29,17 @@ model AiNews {
 
 model GithubProject {
   id               Int      @id @default(autoincrement())
-  repo_name        String   @db.VarChar(255)
-  description      String   @db.Text
+  repo_name        String
+  description      String
   stars            Int
   growth           Int
-  category         String   @db.VarChar(50)
-  language         String   @db.VarChar(50)
-  url              String   @db.VarChar(500)
-  slug             String   @unique @db.VarChar(255)
-  seo_title        String?  @db.VarChar(255)
-  meta_description String?  @db.VarChar(500)
-  keywords         Json?
+  category         String
+  language         String
+  url              String
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
   created_at       DateTime @default(now())
 
   @@index([category])
@@ -48,17 +48,17 @@ model GithubProject {
 
 model AiTool {
   id               Int      @id @default(autoincrement())
-  name             String   @db.VarChar(255)
-  description      String   @db.Text
-  category         String   @db.VarChar(50)
-  pricing          String   @db.VarChar(100)
-  url              String   @db.VarChar(500)
-  features         Json?
-  logo_url         String?  @db.VarChar(500)
-  slug             String   @unique @db.VarChar(255)
-  seo_title        String?  @db.VarChar(255)
-  meta_description String?  @db.VarChar(500)
-  keywords         Json?
+  name             String
+  description      String
+  category         String
+  pricing          String
+  url              String
+  features         String?
+  logo_url         String?
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
   created_at       DateTime @default(now())
 
   @@index([category])
@@ -67,15 +67,15 @@ model AiTool {
 
 model McpServer {
   id               Int      @id @default(autoincrement())
-  name             String   @db.VarChar(255)
-  description      String   @db.Text
-  github_url       String   @db.VarChar(500)
-  category         String   @db.VarChar(50)
-  install_cmd      String   @db.VarChar(500)
-  slug             String   @unique @db.VarChar(255)
-  seo_title        String?  @db.VarChar(255)
-  meta_description String?  @db.VarChar(500)
-  keywords         Json?
+  name             String
+  description      String
+  github_url       String
+  category         String
+  install_cmd      String
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
   created_at       DateTime @default(now())
 
   @@index([category])
@@ -84,17 +84,17 @@ model McpServer {
 
 model AiBook {
   id               Int      @id @default(autoincrement())
-  title            String   @db.VarChar(255)
-  author           String   @db.VarChar(255)
-  description      String   @db.Text
-  category         String   @db.VarChar(50)
-  url              String   @db.VarChar(500)
+  title            String
+  author           String
+  description      String
+  category         String
+  url              String
   rating           Float
-  cover_url        String?  @db.VarChar(500)
-  slug             String   @unique @db.VarChar(255)
-  seo_title        String?  @db.VarChar(255)
-  meta_description String?  @db.VarChar(500)
-  keywords         Json?
+  cover_url        String?
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
   created_at       DateTime @default(now())
 
   @@index([category])
@@ -103,15 +103,15 @@ model AiBook {
 
 model KnowledgeArticle {
   id               Int      @id @default(autoincrement())
-  title            String   @db.VarChar(255)
-  content_mdx      String   @db.LongText
-  category         String   @db.VarChar(50)
-  tags             Json?
-  summary          String   @db.Text
-  slug             String   @unique @db.VarChar(255)
-  seo_title        String?  @db.VarChar(255)
-  meta_description String?  @db.VarChar(500)
-  keywords         Json?
+  title            String
+  content_mdx      String
+  category         String
+  tags             String?
+  summary          String
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
   created_at       DateTime @default(now())
 
   @@index([category])
@@ -120,19 +120,19 @@ model KnowledgeArticle {
 
 model XPost {
   id               Int      @id @default(autoincrement())
-  author_name      String   @db.VarChar(255)
-  author_handle    String   @db.VarChar(100)
-  content          String   @db.Text
+  author_name      String
+  author_handle    String
+  content          String
   likes            Int      @default(0)
   retweets         Int      @default(0)
   replies          Int      @default(0)
-  url              String   @db.VarChar(500)
-  category         String   @db.VarChar(50)
-  media_urls       Json?
-  slug             String   @unique @db.VarChar(255)
-  seo_title        String?  @db.VarChar(255)
-  meta_description String?  @db.VarChar(500)
-  keywords         Json?
+  url              String
+  category         String
+  media_urls       String?
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
   published_at     DateTime @default(now())
   created_at       DateTime @default(now())
 
@@ -142,19 +142,19 @@ model XPost {
 
 model LinuxDoPost {
   id               Int      @id @default(autoincrement())
-  title            String   @db.VarChar(255)
-  content          String   @db.LongText
-  author           String   @db.VarChar(100)
-  category         String   @db.VarChar(50)
-  tags             Json?
+  title            String
+  content          String
+  author           String
+  category         String
+  tags             String?
   replies          Int      @default(0)
   views            Int      @default(0)
   likes            Int      @default(0)
-  url              String   @db.VarChar(500)
-  slug             String   @unique @db.VarChar(255)
-  seo_title        String?  @db.VarChar(255)
-  meta_description String?  @db.VarChar(500)
-  keywords         Json?
+  url              String
+  slug             String   @unique
+  seo_title        String?
+  meta_description String?
+  keywords         String?
   published_at     DateTime @default(now())
   created_at       DateTime @default(now())
 
@@ -164,17 +164,40 @@ model LinuxDoPost {
 
 model SentimentAnalysis {
   id                Int      @id @default(autoincrement())
-  news_slug         String   @unique @db.VarChar(255)
+  news_slug         String   @unique
   positive_pct      Int
   negative_pct      Int
   neutral_pct       Int
-  supporting_views  Json?
-  opposing_views    Json?
-  neutral_views     Json?
-  key_controversies Json?
-  trend_judgment    String?  @db.Text
-  overall_summary   String?  @db.Text
+  supporting_views  String?
+  opposing_views    String?
+  neutral_views     String?
+  key_controversies String?
+  trend_judgment    String?
+  overall_summary   String?
   analyzed_at       DateTime @default(now())
 
   @@map("sentiment_analysis")
+}
+
+model StackOverflowQuestion {
+  id                Int      @id @default(autoincrement())
+  question_id       Int      @unique
+  title             String
+  body              String?
+  tags              String?
+  votes             Int
+  answers           Int
+  views             Int
+  url               String
+  author_name       String
+  author_reputation Int?
+  accepted_answer   String?
+  slug              String   @unique
+  seo_title         String?
+  meta_description  String?
+  keywords          String?
+  asked_at          DateTime
+  created_at        DateTime @default(now())
+
+  @@map("stackoverflow_questions")
 }
